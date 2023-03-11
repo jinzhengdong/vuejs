@@ -237,6 +237,74 @@ new Vue({
 
 ### Vue.js 的事件處理和方法
 
+在 Vue.js 中，可以使用 v-on 指令來綁定事件處理函數。例如：
+
+```html
+<button v-on:click="increment">Click me</button>
+```
+
+在上面的例子中，當用戶單擊按鈕時，increment 方法會被調用。
+
+可以將事件名稱簡寫為方法名稱的形式，例如：
+
+```html
+<button @click="increment">Click me</button>
+```
+
+在上面的例子中，@click 是 v-on:click 的簡寫。
+
+可以在事件處理函數中訪問當前 Vue 實例，例如：
+
+```javascript
+new Vue({
+  el: '#app',
+  data: {
+    count: 0
+  },
+  methods: {
+    increment: function () {
+      this.count++
+    }
+  }
+})
+```
+
+在上面的例子中，increment 方法可以訪問 count 屬性，並將其自增。在事件處理函數中，this 關鍵字指向當前 Vue 實例。
+
+如果需要傳遞事件對象，可以使用 $event 參數。例如：
+
+```html
+<button @click="handleClick($event)">Click me</button>
+```
+
+在上面的例子中，handleClick 方法可以訪問 $event 參數，該參數包含有關事件的詳細信息，例如鼠標位置等。
+
+在 Vue.js 中，也可以使用箭頭函數定義事件處理函數，例如：
+
+```html
+<button @click="() => count++">Click me</button>
+```
+   
+在上面的例子中，箭頭函數定義了一個簡單的表達式，用於將 count 屬性自增。這種方法適用於簡單的事件處理，但對於複雜的事件處理還是建議使用普通的函數定義。
+
+可以將方法定義在 Vue 實例的 methods 屬性中，例如：
+
+```javascript
+new Vue({
+  el: '#app',
+  data: {
+    count: 0
+  },
+  methods: {
+    increment: function () {
+      this.count++
+    }
+  }
+})
+```
+
+在上面的例子中，increment 方法被定義在 Vue 實例的 methods 屬性中，可以在模板中使用 v-on 指令來綁定該方法。這種方式可以使代碼更加組織化，方便管理。
+   
 ## 第二部分：組件化開發
 
 ### 什麼是 Vue.js 組件化開發
