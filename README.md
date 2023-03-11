@@ -128,6 +128,113 @@ Vue.js 是一個基於 MVVM 模式的 JavaScript 框架，用於構建交互式�
 以上是 Vue.js 的基本語法和指令，掌握了這些內容後，就可以開始使用 Vue.js 構建交互式的 Web 應用程序了。
 
 ### Vue.js 的數據綁定和計算屬性
+
+1. 數據綁定
+   Vue.js 提供了數據綁定（data binding）的機制，可以將 JavaScript 變量的值綁定到 HTML 元素上，從而實現數據的自動更新。
+
+插值
+
+在 Vue.js 中，可以使用插值（interpolation）將 JavaScript 變量的值顯示在 HTML 元素中。插值使用双大括号 {{}}，例如：
+
+```html
+<div>
+  {{ message }}
+</div>
+```
+
+在上面的例子中，message 是一个 Vue 實例中的變量，它的值將被渲染到 <div> 元素中。
+
+屬性綁定
+
+在 Vue.js 中，可以使用屬性綁定（attribute binding）將 JavaScript 表達式綁定到 HTML 元素的某個屬性上，例如 title、href 等等。屬性綁定使用 v-bind: 前綴，例如：
+
+```html
+<a v-bind:href="url">
+  Click me
+</a>
+```
+
+在上面的例子中，v-bind:href 是一個 Vue.js 提供的屬性綁定指令，用於將 url 變量的值綁定到 href 屬性上。當 url 變量的值發生變化時，對應的 HTML 元素的 href 屬性也會自動更新。
+
+雙向綁定
+
+在 Vue.js 中，可以使用雙向綁定（two-way binding）將 HTML 元素的值綁定到 JavaScript 變量上，從而實現雙向數據綁定。雙向綁定使用 v-model 指令，例如：
+
+```html
+<input v-model="message">
+```
+
+在上面的例子中，v-model 指令將表單元素的值綁定到 Vue 實例中的 message 變量上。當用戶輸入新的值時，message 變量的值也會隨之更新。
+
+2. 計算屬性
+   Vue.js 提供了計算屬性（computed property）的機制，可以根據其他數據的值計算出一個新的屬性值，從而實現複雜的數據操作。
+
+計算屬性使用 computed 屬性定義，例如：
+
+```javascript
+new Vue({
+  data: {
+    message: 'Hello, Vue.js!'
+  },
+  computed: {
+    reversedMessage: function () {
+      return this.message.split('').reverse().join('')
+    }
+  }
+})
+```
+
+在上面的例子中，reversedMessage 是一個計算屬性，它的值根據 message 變量的值計算而得，這裡使用了 JavaScript計算屬性可以使用簡潔的語法定義，例如：
+
+```javascript
+new Vue({
+  data: {
+    firstName: 'John',
+    lastName: 'Doe'
+  },
+  computed: {
+    fullName: function () {
+      return this.firstName + ' ' + this.lastName
+    }
+  }
+})
+```
+
+在上面的例子中，fullName 是一個計算屬性，它的值根據 firstName 和 lastName 變量的值計算而得。當 firstName 或 lastName 發生變化時，fullName 的值也會自動更新。
+
+計算屬性的值是緩存的，也就是說，只有當計算屬性依賴的數據發生改變時，計算屬性的值才會重新計算。這樣可以提高應用程序的性能。
+
+除了函數形式，計算屬性還可以使用對象形式定義，例如：
+
+```javascript
+new Vue({
+  data: {
+    firstName: 'John',
+    lastName: 'Doe'
+  },
+  computed: {
+    fullName: {
+      get: function () {
+        return this.firstName + ' ' + this.lastName
+      },
+      set: function (value) {
+        var names = value.split(' ')
+        this.firstName = names[0]
+        this.lastName = names[names.length - 1]
+      }
+    }
+  }
+})
+```
+   
+在上面的例子中，fullName 是一個計算屬性，它使用 get 方法計算出完整名稱，使用 set 方法將完整名稱解析為 firstName 和 lastName。這樣，可以通過 v-model 指令將完整名稱綁定到表單元素上。例如：
+
+```html
+<input v-model="fullName">
+```
+
+在上面的例子中，當用戶輸入新的完整名稱時，set 方法會自動解析出 firstName 和 lastName，從而實現雙向數據綁定。
+
 ### Vue.js 的事件處理和方法
 
 ## 第二部分：組件化開發
