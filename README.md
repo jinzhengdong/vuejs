@@ -22,6 +22,39 @@ Vue.js 是一個開源的 JavaScript 前端框架，用於構建現代的、交�
 總體來說，Vue.js 具有易學易用、高效輕量、組件化開發、豐富的生態系統等特點，因此受到了廣泛的關注和使用。
 
 ### 安裝和設置 Vue.js 開發環境
+
+為了開始使用 Vue.js 開發應用程序，需要安裝和設置開發環境。以下是安裝和設置 Vue.js 開發環境的步驟：
+
+1. 安裝 Node.js
+   Vue.js 需要 Node.js 環境才能運行，因此需要先安裝 Node.js。Node.js 是一個基於 Chrome V8 引擎的 JavaScript 運行環境，用於構建高效的 Web 應用程序。你可以在 Node.js 官方網站 上下載適合你的操作系統的版本。
+2. 安裝 Vue CLI
+   Vue CLI 是 Vue.js 官方提供的命令行工具，用於快速生成 Vue.js 應用程序的基礎結構。你可以通過以下命令安裝 Vue CLI：
+
+```bash
+npm install -g @vue/cli
+```
+
+3. 創建新項目
+   安裝 Vue CLI 後，就可以使用它來創建新的 Vue.js 項目。打開終端並執行以下命令：
+
+```bash
+vue create my-project
+```
+
+其中 my-project 是你想要創建的項目名稱。這個命令將生成一個新的 Vue.js 項目並下載所有必要的依賴項。
+
+4. 運行開發服務器
+   創建項目後，可以使用以下命令啟動開發服務器：
+
+```bash
+cd my-project
+npm run serve
+```
+
+這個命令將啟動一個本地開發服務器，並在瀏覽器中打開一個 URL。你可以在這個 URL 上看到你的 Vue.js 應用程序，並在編輯器中進行代碼編寫和調試。
+
+總之，安裝和設置 Vue.js 開發環境的步驟包括：安裝 Node.js、安裝 Vue CLI、創建新項目、運行開發服務器。完成這些步驟後，就可以開始使用 Vue.js 進行開發了。
+
 ### Vue.js 的基本語法和指令
 ### Vue.js 的數據綁定和計算屬性
 ### Vue.js 的事件處理和方法
