@@ -56,6 +56,77 @@ npm run serve
 總之，安裝和設置 Vue.js 開發環境的步驟包括：安裝 Node.js、安裝 Vue CLI、創建新項目、運行開發服務器。完成這些步驟後，就可以開始使用 Vue.js 進行開發了。
 
 ### Vue.js 的基本語法和指令
+
+Vue.js 是一個基於 MVVM 模式的 JavaScript 框架，用於構建交互式的 Web 應用程序。在 Vue.js 中，可以使用 Vue.js 提供的基本語法和指令來創建、渲染和控制 DOM 元素。下面我們來詳細介紹 Vue.js 的基本語法和指令。
+
+1. 插值
+   在 Vue.js 中，可以使用插值（interpolation）將 JavaScript 表達式注入到 HTML 元素中，並動態更新元素的內容。插值使用雙大括號 {{}}，例如：
+
+```html
+<div>
+  {{ message }}
+</div>
+```
+
+在上面的例子中，message 是一個在 Vue 實例中定義的變量。當這個變量的值發生變化時，對應的 HTML 元素的內容也會自動更新。
+
+2. 指令
+   在 Vue.js 中，可以使用指令（directive）將 JavaScript 表達式綁定到 HTML 元素的某個屬性上，從而動態控制元素的行為。指令使用 v- 前綴，例如：
+
+```html
+<div v-if="isShow">
+  This element will only be displayed if 'isShow' is true.
+</div>
+```
+
+在上面的例子中，v-if 是一個 Vue.js 提供的指令，用於根據表達式的值來動態添加或刪除 HTML 元素。當 isShow 變量的值為 true 時，對應的 HTML 元素將被渲染出來；否則，該元素將被刪除。
+
+3. 事件綁定
+   在 Vue.js 中，可以使用事件綁定（event binding）將 JavaScript 函數綁定到 HTML 元素的某個事件上，例如 click、keydown 等等。事件綁定使用 v-on: 前綴，例如：
+
+```html
+<button v-on:click="doSomething">
+  Click me
+</button>
+```
+
+在上面的例子中，v-on:click 是一個 Vue.js 提供的事件綁定指令，用於將 doSomething 函數綁定到 click 事件上。當用戶單擊該按鈕時，對應的 JavaScript 函數將被觸發。
+
+4. 屬性綁定
+   在 Vue.js 中，可以使用屬性綁定（attribute binding）將 JavaScript 表達式綁定到 HTML 元素的某個屬性上，例如 title、href 等等。屬性綁定使用 v-bind: 前綴，例如：
+
+```html
+<a v-bind:href="url">
+  Click me
+</a>
+```
+
+在上面的例子中，v-bind:href 是一個 Vue.js 提供的屬性綁定指令，用於將 url 變量的值綁定到 href 屬性上。當 url 變量的值發生變化時，對應的 HTML 元素的 href 屬性也會自動更新。
+
+5. 雙向綁定
+   在 Vue.js 中，可以使用雙向綁定（two-way binding）將 HTML 元素的值綁定到 JavaScript 變量上，從而實現雙向數據綁定。雙向綁定使用 v-model 指令，例如：
+
+```html
+<input v-model="message">
+```
+
+在上面的例子中，v-model 指令將表單元素的值綁定到 Vue 實例中的 message 變量上。當用戶輸入新的值時，message 變量的值也會隨之更新。
+
+6. 循環渲染
+   在 Vue.js 中，可以使用循環渲染（loop rendering）將一個數組或對象中的每一個元素渲染為一個 HTML 元素。循環渲染使用 v-for 指令，例如：
+
+```html
+<ul>
+  <li v-for="item in items">
+    {{ item }}
+  </li>
+</ul>
+```
+
+在上面的例子中，v-for 指令將 Vue 實例中的 items 數組中的每一個元素渲染為一個 <li> 元素。item 變量代表當前的元素，在模板中可以使用 {{}} 插值將其顯示出來。
+
+以上是 Vue.js 的基本語法和指令，掌握了這些內容後，就可以開始使用 Vue.js 構建交互式的 Web 應用程序了。
+
 ### Vue.js 的數據綁定和計算屬性
 ### Vue.js 的事件處理和方法
 
