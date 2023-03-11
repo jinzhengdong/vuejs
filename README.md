@@ -82,7 +82,7 @@ Vue.js 是一個基於 MVVM 模式的 JavaScript 框架，用於構建交互式�
 在上面的例子中，v-if 是一個 Vue.js 提供的指令，用於根據表達式的值來動態添加或刪除 HTML 元素。當 isShow 變量的值為 true 時，對應的 HTML 元素將被渲染出來；否則，該元素將被刪除。
 
 3. 事件綁定
-   在 Vue.js 中，可以使用事件綁定（event binding）將 JavaScript 函數綁定到 HTML 元素的某個事件上，例如 click、keydown 等等。事件綁定使用 v-on: 前綴，例如：
+   在 Vue.js 中，可以使用事件綁定（event binding）將 JavaScript 函數綁定到 HTML 元素的某個事件上，例如 click、keydown 等等。事件綁定使用 `v-on:` 前綴，例如：
 
 ```html
 <button v-on:click="doSomething">
@@ -93,7 +93,7 @@ Vue.js 是一個基於 MVVM 模式的 JavaScript 框架，用於構建交互式�
 在上面的例子中，v-on:click 是一個 Vue.js 提供的事件綁定指令，用於將 doSomething 函數綁定到 click 事件上。當用戶單擊該按鈕時，對應的 JavaScript 函數將被觸發。
 
 4. 屬性綁定
-   在 Vue.js 中，可以使用屬性綁定（attribute binding）將 JavaScript 表達式綁定到 HTML 元素的某個屬性上，例如 title、href 等等。屬性綁定使用 v-bind: 前綴，例如：
+   在 Vue.js 中，可以使用屬性綁定（attribute binding）將 JavaScript 表達式綁定到 HTML 元素的某個屬性上，例如 `title`、`href` 等等。屬性綁定使用 `v-bind:` 前綴，例如：
 
 ```html
 <a v-bind:href="url">
@@ -101,19 +101,19 @@ Vue.js 是一個基於 MVVM 模式的 JavaScript 框架，用於構建交互式�
 </a>
 ```
 
-在上面的例子中，v-bind:href 是一個 Vue.js 提供的屬性綁定指令，用於將 url 變量的值綁定到 href 屬性上。當 url 變量的值發生變化時，對應的 HTML 元素的 href 屬性也會自動更新。
+在上面的例子中，`v-bind:href` 是一個 Vue.js 提供的屬性綁定指令，用於將 `url` 變量的值綁定到 `href` 屬性上。當 `url` 變量的值發生變化時，對應的 HTML 元素的 `href` 屬性也會自動更新。
 
 5. 雙向綁定
-   在 Vue.js 中，可以使用雙向綁定（two-way binding）將 HTML 元素的值綁定到 JavaScript 變量上，從而實現雙向數據綁定。雙向綁定使用 v-model 指令，例如：
+   在 Vue.js 中，可以使用雙向綁定（two-way binding）將 HTML 元素的值綁定到 JavaScript 變量上，從而實現雙向數據綁定。雙向綁定使用 `v-model` 指令，例如：
 
 ```html
 <input v-model="message">
 ```
 
-在上面的例子中，v-model 指令將表單元素的值綁定到 Vue 實例中的 message 變量上。當用戶輸入新的值時，message 變量的值也會隨之更新。
+在上面的例子中，`v-model` 指令將表單元素的值綁定到 Vue 實例中的 message 變量上。當用戶輸入新的值時，message 變量的值也會隨之更新。
 
 6. 循環渲染
-   在 Vue.js 中，可以使用循環渲染（loop rendering）將一個數組或對象中的每一個元素渲染為一個 HTML 元素。循環渲染使用 v-for 指令，例如：
+   在 Vue.js 中，可以使用循環渲染（loop rendering）將一個數組或對象中的每一個元素渲染為一個 HTML 元素。循環渲染使用 `v-for` 指令，例如：
 
 ```html
 <ul>
@@ -123,7 +123,7 @@ Vue.js 是一個基於 MVVM 模式的 JavaScript 框架，用於構建交互式�
 </ul>
 ```
 
-在上面的例子中，v-for 指令將 Vue 實例中的 items 數組中的每一個元素渲染為一個 <li> 元素。item 變量代表當前的元素，在模板中可以使用 {{}} 插值將其顯示出來。
+在上面的例子中，`v-for` 指令將 Vue 實例中的 items 數組中的每一個元素渲染為一個 `<li>` 元素。item 變量代表當前的元素，在模板中可以使用 `{{}}` 插值將其顯示出來。
 
 以上是 Vue.js 的基本語法和指令，掌握了這些內容後，就可以開始使用 Vue.js 構建交互式的 Web 應用程序了。
 
