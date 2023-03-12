@@ -451,8 +451,6 @@ export default {
 
 ##### 父子组件之间的数据传递
    
-   
-   
 父子组件之间的数据传递是通过属性（props）和事件（event）进行的。
 
 属性传递
@@ -461,9 +459,184 @@ export default {
 事件传递
 子组件可以通过 this.$emit 方法触发事件来通知父组件发生了某些事情。父组件可以通过 v-on 指令监听这些事件并执行相应的操作。例如：
    
+```html
+<!-- 子组件模板 -->
+<template>
+  <div>
+    <button @click="increment">{{ count }}</button>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'ChildComponent',
+  props: {
+    initialCount: {
+      type: Number,
+      default: 0
+    }
+  },
+  data() {
+    return {
+      count: this.initialCount
+    }
+  },
+  methods: {
+    increment() {
+      this.count++
+      this.$emit('increment', this.count)
+    }
+  }
+}
+</script>
+```
    
+在这个例子中，子组件 `ChildComponent` 有一个名为 `increment` 的方法和一个名为 `count` 的响应式数据。每当用户点击按钮时，它会执行 `increment` 方法，将 `count` 增加一并通过 `$emit` 方法触发名为 `increment` 的事件，并将当前的 `count` 值作为参数传递。
+
+在父组件中，可以通过 `v-on` 指令监听子组件的 `increment` 事件，并在事件回调函数中执行相应的操作。例如：
    
+```html
+<!-- 父组件模板 -->
+<template>
+  <div>
+    <child-component :initial-count="count" @increment="handleIncrement"></child-component>
+  </div>
+</template>
+
+<script>
+import ChildComponent from './ChildComponent.vue'
+
+export default {
+  name: 'ParentComponent',
+  components: {
+    ChildComponent
+  },
+  data() {
+    return {
+      count: 0
+    }
+  },
+  methods: {
+    handleIncrement(count) {
+      this.count = count
+    }
+  }
+}
+</script>
+```
    
+在这个例子中，父组件 ParentComponent 包含了一个 ChildComponent 组件，并将 count 值作为 initial-count 属性传递给子组件。它还通过 v-on 指令监听子组件的 increment 事件，并在 handleIncrement 方法中更新 count 值。   
+   
+##### 兄弟组件之间的数据传递
+
+兄弟组件之间的数据传递需要使用一个共享的父组件或者一个全局事件总线来实现。
+
+共享的父组件
+
+兄弟组件可以通过它们的共同父组件来共享数据。父组件可以在它的数据对象中声明一个变量，并将它作为属性传递给它的子组件。这些子组件可以读取这个变量并在需要时修改它。   
+   
+```html
+<!-- 父组件模板 -->
+<template>
+  <div>
+    <child-component-a :value="value" @input="value = $event"></child-component-a>
+    <child-component-b :value="value"></child-component-b>
+  </div>
+</template>
+
+<script>
+import ChildComponentA from './ChildComponentA.vue'
+import ChildComponentB from './ChildComponentB.vue'
+
+export default {
+  name: 'ParentComponent',
+  components: {
+    ChildComponentA,
+    ChildComponentB
+  },
+  data() {
+    return {
+      value: ''
+    }
+  }
+}
+</script>
+```
+   
+在这个例子中，父组件 `ParentComponent` 包含了两个子组件 `ChildComponentA` 和 `ChildComponentB`，并将一个名为 `value` 的变量作为属性传递给它们。当 `ChildComponentA` 修改 `value` 变量时，它会通过 `$emit` 方法触发一个名为 `input` 的事件，并将新的值作为参数传递给父组件。父组件可以通过 `v-on` 指令监听这个事件，并更新 `value` 变量的值。
+
+全局事件总线
+   
+Vue.js 还提供了一个全局事件总线，可以用于兄弟组件之间的通信。事件总线可以使用一个新的 Vue 实例来创建，这个实例可以被导入到需要通信的组件中，并通过 `$emit` 和 `$on` 方法来触发和监听事件。
+
+```javascript
+// event-bus.js
+import Vue from 'vue'
+export const EventBus = new Vue()
+```
+   
+在需要通信的组件中，可以导入事件总线，并在需要时通过 $emit 方法触发事件，并通过 $on 方法监听事件。例如：
+   
+```html
+<!-- 组件 A 的模板 -->
+<template>
+  <div>
+    <button @click="updateMessage">Update Message</button>
+  </div>
+</template>
+
+<script>
+import { EventBus } from '@/event-bus.js'
+
+export default {
+  name: 'ComponentA',
+  data() {
+    return {
+      message: 'Hello from Component A!'
+    }
+  },
+  methods: {
+    updateMessage() {
+      this.message = 'New message from Component A!'
+      EventBus.$emit('message-updated', this.message)
+    }
+  }
+}
+</script>
+```
+   
+```html
+<!-- 组件 B 的模板 -->
+<template>
+  <div>
+    <p>Message from Component A: {{ message }}</p>
+  </div>
+</template>
+
+<script>
+import { EventBus } from '@/event-bus.js'
+
+export default {
+  name: 'ComponentB',
+  data() {
+    return {
+      message: ''
+    }
+  },
+  created() {
+    EventBus.$on('message-updated', message => {
+      this.message = message
+    })
+  },
+  beforeDestroy() {
+    EventBus.$off('message-updated')
+  }
+}
+</script>
+```
+   
+在这个例子中，组件 ComponentA 和 ComponentB 都在 beforeDestroy 钩子中移除了它们对事件 message-updated 的监听器，以确保在组件销毁时不会出现内存泄漏问题。
+
 ### 組件的生命週期和鉤子函數
 ### 使用插槽實現組件的嵌套和內容分發
 
