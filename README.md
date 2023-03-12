@@ -383,9 +383,83 @@ new Vue({
    
 ### 組件的屬性和數據傳遞
    
+Vue.js 组件是构成 Vue.js 应用程序的基本构建块。它们是可重用、可组合、封装了 HTML、CSS 和 JavaScript，并具有自己的状态和行为的功能单元。
+
+在 Vue.js 组件中，属性和数据传递是非常重要的概念。在这里，我们将详细介绍组件的属性和数据传递，并提供示例说明。
+
+#### 组件属性
+
+组件属性（props）是从父组件传递给子组件的值。通过属性，父组件可以向子组件传递任意类型的数据，包括字符串、数字、对象、数组等。
+
+在子组件中，使用 `props` 选项来声明组件属性，并通过组件标签上的属性值进行传递。例如：
+
+```html
+<template>
+  <div>
+    <h1>{{ title }}</h1>
+    <p>{{ content }}</p>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'MyComponent',
+  props: {
+    title: String,
+    content: String
+  }
+}
+</script>
+```
+
+在这个例子中，`MyComponent` 组件有两个属性 `title` 和 `content`，它们都被声明为字符串类型。在父组件中，可以这样使用它：   
+   
+```html
+<template>
+  <div>
+    <my-component title="Hello" content="World"></my-component>
+  </div>
+</template>
+
+<script>
+import MyComponent from './MyComponent.vue'
+
+export default {
+  name: 'ParentComponent',
+  components: {
+    MyComponent
+  }
+}
+</script>
+```
+   
+在这个例子中，父组件 `ParentComponent` 包含了一个 `MyComponent` 组件，使用了 `title` 和 `content` 属性并传递了字符串值。当 `MyComponent` 组件被渲染时，它会将这些属性的值绑定到相应的位置。
+
+除了字符串类型，Vue.js 组件属性还可以使用其他类型，例如：
+
+* `Boolean`: 布尔值，支持用`v-bind`简写为:
+* `Number`: 数字，支持用`v-bind`简写为:
+* `Array`: 数组
+* `Object`: 对象
+* `Function`: 函数
+* `Promise`: Promise 对象
+* `Symbol`: ES6 Symbol 类型
+   
+#### 数据传递
+
+在 Vue.js 中，组件的数据传递分为两种：父子组件之间的数据传递和兄弟组件之间的数据传递。
+
+##### 父子组件之间的数据传递
    
    
    
+父子组件之间的数据传递是通过属性（props）和事件（event）进行的。
+
+属性传递
+如上所述，父组件可以通过属性向子组件传递数据。子组件可以使用这些属性来渲染自己的模板或执行自己的行为。当父组件的属性值发生变化时，子组件会自动响应并更新自己。
+
+事件传递
+子组件可以通过 this.$emit 方法触发事件来通知父组件发生了某些事情。父组件可以通过 v-on 指令监听这些事件并执行相应的操作。例如：
    
    
    
