@@ -638,6 +638,99 @@ export default {
 在这个例子中，组件 ComponentA 和 ComponentB 都在 beforeDestroy 钩子中移除了它们对事件 message-updated 的监听器，以确保在组件销毁时不会出现内存泄漏问题。
 
 ### 組件的生命週期和鉤子函數
+   
+Vue.js 组件有一个完整的生命周期，包括创建、挂载、更新和销毁等阶段。在这些阶段中，Vue.js 提供了一些钩子函数（hook functions），允许你在特定的时刻执行一些操作，例如在组件创建时进行初始化、在组件销毁时进行清理等。
+
+下面是 Vue.js 组件的生命周期图示：
+
+<img src="Vue.js 组件生命周期图示"/>
+
+下面我们来逐个介绍每个阶段和对应的钩子函数：   
+   
+1. 创建阶段
+   * beforeCreate: 组件实例刚创建，数据观测和初始化还未开始。
+   * created: 组件实例创建完成，数据观测和初始化已完成。
+
+在 `beforeCreate` 阶段，组件实例已经创建出来，但是组件的数据观测和初始化还未开始，因此在这个阶段无法访问到组件的 `data`、`computed`、`methods` 等属性和方法。通常可以在这个阶段做一些初始化工作，例如获取初始数据、设置默认值等。在 `created` 阶段，组件的数据观测和初始化已经完成，因此可以访问到组件的所有属性和方法。
+
+2. 挂载阶段
+   * beforeMount: 组件模板编译完成，但是还未将组件挂载到页面上。
+   * mounted: 组件挂载完成，已经将组件插入到页面中。
+
+在 `beforeMount` 阶段，组件的模板已经编译完成，但是还未将组件挂载到页面上，因此在这个阶段可以访问到组件的 `$el` 属性，但是无法获取到组件的真实 `DOM` 元素。在 `mounted` 阶段，组件已经挂载完成，因此可以访问到组件的 `$el` 属性和真实 `DOM` 元素，通常可以在这个阶段做一些 `DOM` 操作或者发送请求等。   
+   
+3. 更新阶段
+   * beforeUpdate: 组件数据更新，但是还未重新渲染组件。
+   * updated: 组件重新渲染完成。
+
+在 beforeUpdate 阶段，组件的数据发生了变化，但是还未重新渲染组件，因此可以在这个阶段访问到更新前的数据和 DOM 元素。在 updated 阶段，组件已经重新渲染完成，因此可以访问到更新后的数据和 DOM 元素，通常可以在这个阶段做一些 DOM 操作或者发送请求等。
+   
+4. 销毁阶段
+   * beforeDestroy: 组件销毁前执行的函数，可以在这里做一些清理工作。
+   * destroyed: 组件销毁后执行的函数，通常用来释放资源。
+
+在 beforeDestroy 阶段，组件即将被销毁, 在 beforeDestroy 阶段，组件即将被销毁，此时组件实例仍然完好无损，可以访问到组件的所有属性和方法。在这个阶段可以做一些清理工作，例如取消定时器、解绑事件监听器、释放内存等。需要注意的是，在这个阶段调用 vm.$destroy() 方法并不会立即销毁组件，而是会触发 beforeDestroy 钩子函数，然后等待下一个事件循环周期才会真正销毁组件。
+
+在 destroyed 阶段，组件已经被销毁，此时组件实例已经无法访问到，所有属性和方法都已经被清理掉。在这个阶段可以做一些释放资源的工作，例如清空缓存、断开连接等。需要注意的是，在 destroyed 阶段已经无法再访问到组件的任何属性和方法，因此不能在这个阶段执行一些需要访问组件实例的操作。
+
+下面是一个示例代码，演示如何在组件的生命周期钩子函数中执行一些操作：
+   
+```html
+<template>
+  <div>
+    <p>计数器：{{ count }}</p>
+    <button @click="add">增加</button>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      count: 0
+    };
+  },
+  methods: {
+    add() {
+      this.count++;
+    }
+  },
+  beforeCreate() {
+    console.log('beforeCreate');
+  },
+  created() {
+    console.log('created');
+  },
+  beforeMount() {
+    console.log('beforeMount');
+  },
+  mounted() {
+    console.log('mounted');
+  },
+  beforeUpdate() {
+    console.log('beforeUpdate');
+  },
+  updated() {
+    console.log('updated');
+  },
+  beforeDestroy() {
+    console.log('beforeDestroy');
+    clearInterval(this.timer);
+  },
+  destroyed() {
+    console.log('destroyed');
+  },
+  mounted() {
+    this.timer = setInterval(() => {
+      console.log('计数器：', this.count);
+    }, 1000);
+  }
+};
+</script>
+```
+   
+在这个示例中，我们定义了一个计数器组件，包含一个计数器和一个按钮，点击按钮可以增加计数器的值。在组件的生命周期钩子函数中，我们分别打印出了各个阶段的名称，并在 mounted 钩子函数中启动了一个定时器。在 beforeDestroy 钩子函数中清除了定时器。
+   
 ### 使用插槽實現組件的嵌套和內容分發
 
 ## 第三部分：進階技術和應用
