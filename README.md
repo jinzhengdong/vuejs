@@ -787,8 +787,148 @@ export default {
 在上面的示例中，我们为 `header` 插槽传递了一个 `<h1>` 标签，为默认插槽传递了一个 `<p>` 标签，为 `footer` 插槽传递了一个 `<button>` 元素。当 Card 组件渲染时，传递的内容将会被插入到对应的插槽中。如果没有传递内容，则会显示插槽的默认内容。
 
 ## 第三部分：進階技術和應用
+   
+Vue.js 是一种流行的 JavaScript 前端框架，它的路由和导航功能能够使得我们构建单页面应用变得更加容易。Vue.js 的路由和导航通过 Vue Router 插件实现。
 
 ### 路由和導航
+   
+#### Vue.js 路由
+   
+Vue.js 路由允许我们在单页面应用中创建多个视图，并且可以通过 URL 进行访问和切换。例如，我们可以将一个应用分成不同的页面，每个页面都有自己的 URL。在使用路由之前，需要安装 Vue Router：
+
+```bash
+npm install vue-router
+```
+
+在 Vue.js 中，我们可以使用 Vue.use() 方法安装 Vue Router 插件：
+
+```js
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+
+Vue.use(VueRouter)
+```
+
+Vue.js 路由的核心是路由表，路由表包含了 URL 和对应的组件。可以使用 VueRouter 对象来定义路由表，例如：   
+   
+```js
+const router = new VueRouter({
+  routes: [
+    { path: '/', component: Home },
+    { path: '/about', component: About },
+    { path: '/contact', component: Contact }
+  ]
+})
+```
+   
+上述代码定义了三个路由，分别对应三个组件 `Home`、`About` 和 `Contact`，它们分别对应 `URL` `/、` `/about` 和 `/contact`。
+
+我们还需要在 Vue 实例中注入 `router` 对象：
+
+```js
+const app = new Vue({
+  router
+}).$mount('#app')
+```
+
+现在，我们就可以在应用中使用 router-link 组件进行导航了。router-link 组件会生成一个带有 href 属性的链接，点击链接后会自动切换到对应的路由。例如，可以在应用中使用以下代码：
+
+```html
+<router-link to="/">Home</router-link>
+<router-link to="/about">About</router-link>
+<router-link to="/contact">Contact</router-link>
+```
+
+这将会生成三个链接，点击每个链接后，路由会自动切换到对应的组件。
+   
+#### Vue.js 导航
+
+Vue.js 导航允许我们在不同的组件之间进行导航，例如从一个组件切换到另一个组件。Vue.js 导航可以通过 `router.push()` 方法实现，例如：
+   
+```js
+this.$router.push('/about')
+```
+   
+上述代码将会切换到路由为 `/about` 的组件。我们也可以使用 `router.go()` 方法在历史记录中进行前进或后退：
+
+```js
+this.$router.go(-1) // 后退
+this.$router.go(1) // 前进
+```
+   
+除了使用代码进行导航，我们还可以使用 `router-link` 组件和 `router-view` 组件进行导航。`router-link` 组件生成一个带有 `href` 属性的链接，点击链接后会自动切换到对应的路由，例如：
+
+```html
+<router-link to="/about">About</router-link>
+```
+   
+router-view 组件用于显示当前路由对应的组件，例如：
+
+```html
+<router-view></router-view>
+```
+
+上述代码会根据当前的路由自动渲染对应的组件。例如，如果当前路由为 `/about`，那么会自动渲染 `About` 组件。
+
+除了默认的 `router-view` 组件，我们还可以使用命名视图（`named views`）来渲染多个视图。例如，可以定义两个命名视图：
+
+```html
+<router-view name="header"></router-view>
+<router-view></router-view>
+```
+   
+上述代码定义了一个 `header` 命名视图和一个默认视图。我们可以在路由表中定义每个路由需要渲染的视图：
+
+```js
+const router = new VueRouter({
+  routes: [
+    {
+      path: '/',
+      components: {
+        default: Home,
+        header: Header
+      }
+    },
+    {
+      path: '/about',
+      components: {
+        default: About,
+        header: Header
+      }
+    },
+    {
+      path: '/contact',
+      components: {
+        default: Contact,
+        header: Header
+      }
+    }
+  ]
+})
+```
+   
+上述代码定义了三个路由，每个路由都有一个默认视图和一个 `header` 命名视图，`Header` 组件会在每个路由中都被渲染。可以在组件中使用 `name` 属性来定义命名视图：
+
+```html
+<template>
+  <div>
+    <header>
+      <!-- 渲染命名视图 -->
+      <router-view name="header"></router-view>
+    </header>
+    <main>
+      <!-- 渲染默认视图 -->
+      <router-view></router-view>
+    </main>
+  </div>
+</template>
+```
+   
+上述代码定义了一个组件，使用 `router-view` 组件来渲染命名视图和默认视图。
+
+Vue.js 路由和导航提供了一种方便的方式来构建单页面应用，使得应用更加模块化和易于维护。如果想深入了解 Vue.js 路由和导航，可以查看官方文档：https://router.vuejs.org/。
+  
+   
 ### 狀態管理和 Vuex
 ### 表單處理和驗證
 ### 自定義指令和過濾器
